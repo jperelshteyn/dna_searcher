@@ -97,11 +97,11 @@ class KmpMatcher(object):
     def kmpSearch(self, string_reader):
         #Number of characters matched
         match = 0
-        pos = 0
+        reader_ctx = ContextBuffer(string_reader, 2, len(self.pattern), 7)
         
         try:
             while True:
-                char = next(string_reader)
+                char = next(reader_ctx)
 
                 #Next character is not a match
                 while match > 0 and self.pattern[match] != char:
@@ -111,10 +111,8 @@ class KmpMatcher(object):
                     match += 1
                 #Motif found
                 if match == len(self.pattern):
-                    yield self.pattern
-                    print("Match found at position: " + str(pos-match+2) + ':' + str(pos+1))
+                    print(reader_ctx)
                     match = self.prefix[match-1]
-                pos += 1
             
         except StopIteration:
             pass
