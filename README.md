@@ -22,7 +22,7 @@ python setup.py install
 
 Input nucleotide sequence as well as the target subsequence must only consist of base values:
 `A`, `C`, `G`, `T`
-The end of sequence character is `ε` - nothing will be search after it. 
+The end of sequence character is `ε` - nothing will be searched after it. 
 
 ### Usage
 
