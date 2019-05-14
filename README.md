@@ -14,9 +14,15 @@ python setup.py install
 
 ### Command Line Arguments
 
-* `-T` target subsequence
-* `-x` length of left context
-* `-y` length of right context
+* `-T` target subsequence (required)
+* `-x` length of left context (optional)
+* `-y` length of right context (optional)
+
+### Requirements
+
+Input nucleotide sequence as well as the target subsequence must only consist of base values:
+`A`, `C`, `G`, `T`
+The end of sequence character is `ε` - nothing will be search after it. 
 
 ### Usage
 
