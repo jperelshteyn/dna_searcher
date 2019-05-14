@@ -6,6 +6,9 @@ import sys
 import codecs
 
 class BufferList:
+
+    """FILO queue""" 
+
     def __init__(self, size):
         self.size = size
         self.curr_size = 0
@@ -31,6 +34,9 @@ class BufferList:
 
 
 class ContextBuffer:
+
+    """Creates buffers around target in a string stream for context"""
+
     def __init__(self, string_reader, left_len, target_len, right_len):
         self._reader = string_reader
         self._left = BufferList(left_len)
@@ -71,6 +77,10 @@ class ContextBuffer:
 
 
 class ContextedStringFinder:
+
+    """Implementation of KPM search algorithm adjusted for stream 
+    and with optional left and right contexts"""
+
     def __init__(self, pattern, alphabet, left_ctx_len, right_ctx_len):
         self.pattern = pattern
         self.alphabet = alphabet
@@ -147,5 +157,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# echo "AAGTACGTGCAGTGAGTAGTAGACCTGACGTAGACCGATATAAGTAGCTAε" | python main.py -T:AGTA -x:5 -y:7
