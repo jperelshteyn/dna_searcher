@@ -8,7 +8,7 @@ with optional left and right context.
 
 ```bash
 git clone https://github.com/jperelshteyn/nucl-finder.git
-cd dna_searcher
+cd nucl-finder
 python setup.py install
 ```
 
