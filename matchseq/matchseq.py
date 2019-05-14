@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from collections import deque
-import argparse
 import getopt
 import sys
-
+import codecs
 
 class BufferList:
     def __init__(self, size):
@@ -110,45 +111,41 @@ def parse_args(alphabet):
     optlist, _ = getopt.getopt(sys.argv[1:], 'T:x:y:')
     args.update(optlist)
     vars = {'-T': str, '-x': int, '-y': int}
-    for a, t in vars:
+    for a, t in vars.items():
         try:
             args[a] = t(args[a][1:])
-        except ValueError:
-            Exception('{} is required in this form of {}:{}'.format(a, a, 'val'))
+        except (ValueError, KeyError):
+            raise Exception('{} {} is required in the form of {}:val'.format(a, t, a))
     target = left_ctx_len = right_ctx_len = None
     target = args['-T']
     for c in target:
         if c not in alphabet:
-            Exception('illegal character {} in target subsequence'.format(c))
+            raise Exception('illegal character {} in target subsequence'.format(c))
     left_ctx_len = args['-x']
     right_ctx_len = args['-y']
-    return pattern, left_ctx_len, right_ctx_len
+    return target, left_ctx_len, right_ctx_len
 
 
-def parse_int(s, err_msg):
-    try:
-        return int(s)
-    except ValueError:
-        print(err_msg)
-        sys.exit(2)
-
-
-def stdin_reader(stop_char):
+def stdin_reader(stop_chars):
+    sys.stdin = codecs.getreader('utf-8')(sys.stdin)
     while True:
         c = sys.stdin.read(1)
-        if c == stop_char:
+        if c in stop_chars:
             break
         yield c
 
 
 def main():
-    alphabet = set('ACGT')
-    stop_char = 'ε'
-    r = stdin_reader(stop_char)
+    alphabet = set(u'ACGT')
+    stop_chars = set([u'ε', u'\n', u''])
+    r = stdin_reader(stop_chars)
     target, left_ctx_len, right_ctx_len = parse_args(alphabet)
-    finder = ContextedStringFinder(target, left_ctx_len, right_ctx_len)
-    finder.findall(r)
+    finder = ContextedStringFinder(target, alphabet, left_ctx_len, right_ctx_len)
+    for match in finder.findall(r):
+        print(match)
 
 
 if __name__ == "__main__":
     main()
+
+# echo "AAGTACGTGCAGTGAGTAGTAGACCTGACGTAGACCGATATAAGTAGCTAε" | python main.py -T:AGTA -x:5 -y:7

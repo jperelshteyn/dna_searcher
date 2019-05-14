@@ -1,6 +1,7 @@
-import unittest
+# -*- coding: utf-8 -*-
 
-from main import *
+import unittest
+from matchseq.matchseq import *
 
 class TestBufferList(unittest.TestCase):
 
@@ -20,7 +21,7 @@ class TestBufferList(unittest.TestCase):
 class TestContextBuffer(unittest.TestCase):
 
     def test(self):
-        ctx = ContextBuffer(reader(STRING), 2, 2, 2, 'ε')
+        ctx = ContextBuffer(reader(STRING), 2, 2, 2)
         front, back = ctx.get_context()
         self.assertEqual(front, '', 'expected front context to be initially empty')
         self.assertEqual(back, STRING[:2], 'expected back context to fill up on initialization')
@@ -34,7 +35,7 @@ class TestContextBuffer(unittest.TestCase):
 class TestContextedStringFinder(unittest.TestCase):
 
     def test(self):
-        finder = ContextedStringFinder(PATTERN, 5, 7)
+        finder = ContextedStringFinder(PATTERN, u'ACGT', 5, 7)
         results = list(finder.findall(reader(STRING)))
         expected = [
             'A AGTA CGTGCAG',
@@ -45,7 +46,7 @@ class TestContextedStringFinder(unittest.TestCase):
         self.assertListEqual(results, expected, 'string finder results do not match expected')
 
 
-STRING = 'AAGTACGTGCAGTGAGTAGTAGACCTGACGTAGACCGATATAAGTAGCTAε'
+STRING = 'AAGTACGTGCAGTGAGTAGTAGACCTGACGTAGACCGATATAAGTAGCTA'
 PATTERN = 'AGTA'
 def reader(string):
     for c in string:

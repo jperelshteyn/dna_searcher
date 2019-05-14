@@ -1,4 +1,4 @@
-from setuptools import 
+from setuptools import setup
 
 setup(
     name = 'matchseq',
@@ -6,6 +6,6 @@ setup(
     packages = ['matchseq'],
     entry_points = {
         'console_scripts': [
-            'matchseq = main:main'
+            'matchseq = matchseq.matchseq:main'
         ]
     })
