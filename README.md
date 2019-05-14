@@ -7,8 +7,8 @@ with optional left and right context.
 ### Install
 
 ```bash
-git clone https://github.com/jperelshteyn/nucl-finder.git
-cd nucl-finder
+git clone https://github.com/jperelshteyn/matchseq.git
+cd matchseq
 python setup.py install
 ```
 
