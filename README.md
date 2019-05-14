@@ -1,13 +1,13 @@
 ## matchseq
 
-Memory safe nucleotide subsequence search tool.
+Memory-safe nucleotide subsequence search tool.
 It will search a stream of nucleotides and print every occurrence of a specified subsequence
 with optional left and right context. 
 
 ### Install
 
 ```bash
-git clone https://github.com/jperelshteyn/dna_searcher.git
+git clone https://github.com/jperelshteyn/nucl-finder.git
 cd dna_searcher
 python setup.py install
 ```
