@@ -7,7 +7,7 @@ import codecs
 
 class BufferList:
 
-    """FILO queue""" 
+    """FIFO queue""" 
 
     def __init__(self, size):
         self.size = size
